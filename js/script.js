@@ -2,6 +2,7 @@
 const searchBtn = document.querySelector('#searchBtn');
 const searchInp = document.querySelector('#searchInp');
 const resultDiv = document.querySelector('#resultDiv');
+const bigImg =document.querySelector('#bigImg');
 
 
 
@@ -21,6 +22,10 @@ searchBtn.addEventListener('click', () => {
     })
 });
 
+function showModal(largImage) {
+    bigImg.src = largImage;
+    $('#imgModal').modal('show');
+}
 
 class Search {
     constructor(searchword) {
@@ -74,8 +79,8 @@ class ImageResult{
             <img class="card-img-top" height="150" src="${this.smallImageUrl}" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">${this.user}</h5>
-              <p class="card-text">${this.tags}</p>
-              <a href="#" class="btn btn-primary">preview</a>
+              <p class="card-text" style="min-height:70px">${this.tags}</p>
+              <a href="#" class="btn btn-primary" onclick="showModal('${this.largImageUrl}')">preview</a>
             </div>
           </div>
     `;
