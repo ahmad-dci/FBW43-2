@@ -1,6 +1,8 @@
 // get DOM [html page]  elements
 const searchBtn = document.querySelector('#searchBtn');
-const searchInp = document.querySelector('#searchInp') ;
+const searchInp = document.querySelector('#searchInp');
+const resultDiv = document.querySelector('#resultDiv');
+
 
 
 // add eventlistener to searchBtn click
@@ -9,6 +11,11 @@ searchBtn.addEventListener('click', () => {
     const newSearch = new Search(searchword);
     newSearch.getResult().then(results => {
         console.log(results);
+        resultDiv.innerText = '';
+        results.forEach(element => {
+            
+            resultDiv.append(element.renderHtml());
+        });
     }).catch(error => {
         console.log(error);
     })
@@ -59,18 +66,20 @@ class ImageResult{
         this.tags = tags;
     }
     renderHtml() {
+        const containerDiv = document.createElement('div');
+        containerDiv.className = 'col-lg-3 col-md-6 col-sm-12';
+        containerDiv.style.height = '350px';
         const htmlText = `
-        <div class="col-md-3 col-sm-12">
         <div class="card p-3" style="width: 18rem;">
-            <img class="card-img-top" src="${this.smallImageUrl}" alt="Card image cap">
+            <img class="card-img-top" height="150" src="${this.smallImageUrl}" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">${this.user}</h5>
               <p class="card-text">${this.tags}</p>
               <a href="#" class="btn btn-primary">preview</a>
             </div>
           </div>
-        </div>
-    `
-    return htmlText;
+    `;
+    containerDiv.innerHTML = htmlText;
+    return containerDiv ;
     }
 }
