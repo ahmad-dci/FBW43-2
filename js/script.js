@@ -3,13 +3,15 @@ const searchBtn = document.querySelector('#searchBtn');
 const searchInp = document.querySelector('#searchInp');
 const resultDiv = document.querySelector('#resultDiv');
 const bigImg =document.querySelector('#bigImg');
+const colorSelect = document.querySelector('#colorSelect');
 
-
+// 6, 13, 14, 33, 35 39
 
 // add eventlistener to searchBtn click
 searchBtn.addEventListener('click', () => {
     const searchword = searchInp.value;
-    const newSearch = new Search(searchword);
+    const searchColor = colorSelect.value;
+    const newSearch = new Search(searchword, searchColor);
     newSearch.getResult().then(results => {
         console.log(results);
         resultDiv.innerText = '';
@@ -28,11 +30,14 @@ function showModal(largImage) {
 }
 
 class Search {
-    constructor(searchword) {
-        this.searchWord = searchword
+    constructor(searchword, searchcolor) {
+        this.searchWord = searchword;
+        this.searchColor = searchcolor;
     }
     getResult() {
-        const url = 'https://pixabay.com/api/?key=12000491-41fc68d8c365df909e022ceb6' + '&q=' + this.searchWord;
+        const url = 'https://pixabay.com/api/?key=12000491-41fc68d8c365df909e022ceb6' + '&q=' + this.searchWord
+        + (this.searchColor? '&colors=' + this.searchColor : '')
+        ;
         return new Promise((resolve, reject) => {
             fetch(url).then(response => {
                 if (response.status === 200) {
