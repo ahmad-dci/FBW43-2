@@ -58,4 +58,19 @@ class ImageResult{
         this.user = user;
         this.tags = tags;
     }
+    renderHtml() {
+        const htmlText = `
+        <div class="col-md-3 col-sm-12">
+        <div class="card p-3" style="width: 18rem;">
+            <img class="card-img-top" src="${this.smallImageUrl}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">${this.user}</h5>
+              <p class="card-text">${this.tags}</p>
+              <a href="#" class="btn btn-primary">preview</a>
+            </div>
+          </div>
+        </div>
+    `
+    return htmlText;
+    }
 }
